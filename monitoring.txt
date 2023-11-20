@@ -1,0 +1,18 @@
+NAME                                         READY   STATUS    RESTARTS   AGE
+pod/grafana-6cf6665d5c-56ws6                 1/1     Running   0          37m
+pod/prometheus-8656f97587-mw7wt              1/1     Running   0          38m
+pod/prometheus-deployment-855867696c-v5fbt   1/1     Running   0          148m
+
+NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/grafana      ClusterIP   10.103.124.98   <none>        3000/TCP   37m
+service/prometheus   ClusterIP   10.108.1.9      <none>        9090/TCP   38m
+
+NAME                                    READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/grafana                 1/1     1            1           37m
+deployment.apps/prometheus              1/1     1            1           38m
+deployment.apps/prometheus-deployment   1/1     1            1           148m
+
+NAME                                               DESIRED   CURRENT   READY   AGE
+replicaset.apps/grafana-6cf6665d5c                 1         1         1       37m
+replicaset.apps/prometheus-8656f97587              1         1         1       38m
+replicaset.apps/prometheus-deployment-855867696c   1         1         1       148m
