@@ -1,0 +1,37 @@
+version: 2.1
+
+jobs:
+  # Job untuk melakukan linting terhadap Dockerfile
+  lint-dockerfile:
+    docker:
+      - image: hadolint/hadolint:latest
+    steps:
+      - checkout
+      - run: hadolint Dockerfile
+
+  # Job untuk build dan push Docker image frontend (karsajobs-ui)
+  build-app-karsajobs-ui:
+    docker:
+      - image: docker:stable
+    steps:
+      - checkout
+      - run:
+          name: Build and Push Docker Image for karsajobs-ui
+          command: |
+            # Build Docker image untuk frontend (karsajobs-ui) dari Dockerfile
+            docker build -t your_docker_username/karsajobs-ui:latest -f Dockerfile .
+            
+            # Login ke Docker Hub menggunakan credential
+            echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+            
+            # Push image frontend (karsajobs-ui) ke Docker Hub
+            docker push your_docker_username/karsajobs-ui:latest
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - lint-dockerfile
+      - build-app-karsajobs-ui:
+          requires:
+            - lint-dockerfile
